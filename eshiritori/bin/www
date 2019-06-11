@@ -1,0 +1,137 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('eshiritori:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+//websocketのサーバーライブラリを読み込む
+var WebSocketServer = require("ws").Server;
+
+//websocketサーバーを生成
+var wss = new WebSocketServer({server:server});
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+
+var client = [] ;
+//websocketクライアントが接続するとwssにconnectionイベントが発生
+//その時に呼び出す関数を決める
+wss.on("connection",on_connection);
+
+//クライアントの接続があった
+function on_connection(ws){
+  console.log("established websocket connection");
+
+  //クライアントからデータを受信するとwsにmessageイベントが発生する
+  //その時に呼び出される関数を決める
+  ws.on("message",on_message);
+  ws.on("close", on_close) ;
+  client.push(ws) ;
+}
+
+//データを受信した
+//引数は受信データ
+function on_message(data){
+  //send()関数を用いて受信したデータをそのまま送り返す
+  //テキストで受信したものはテキストモードでバイナリで受信したものはバイナリで送信できる
+  for(var i=0; i<client.length; i++) {
+    var dest = client[i] ;
+    if(!!dest) {
+      dest.send(data) ;
+    }
+  }
+}
+
+function on_close() {
+  for(var i=0; i<client.length; i++) {
+    if(this===client[i]) {
+      client.splice(i,1) ;
+      return ;
+    }
+  }
+}
+
+

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+  <meta charset="UTF-8" />
+  <title>絵しりとり</title>
+  <link rel="stylesheet" href="./style.css" type="text/css" />
+  <script src="./script.js"></script>
+ </head>
+
+ <body>
+  <div class="contents">
+
+    <div class="left">
+        <img src="./logo.png" class="title">
+        <canvas id="myCanvas" width="480" height="410" class="canvas">  </canvas>
+        <div class="tape"></div>
+        <form name="form1" >
+          
+          <div class="icon">
+
+            <table class="draw">
+              <tr>
+                <td>
+                  <div class="color" id="black" onclick="set_black()"></div>
+                </td>
+                <td>
+                  <div class="color" id="gray" onclick="set_gray()"></div>
+                </td>
+                <td>
+                  <div class="color" id="brown" onclick="set_brown()"></div>
+                </td>
+                <td>
+                  <div class="color" id="red" onclick="set_red()"></div>
+                </td>  
+                <td>
+                  <div class="color" id="orange" onclick="set_orange()"></div>
+                </td>  
+                <td>
+                  <div class="color" id="yellow" onclick="set_yellow()"></div>
+                </td>  
+                <td>
+                  <div class="color" id="green" onclick="set_green()"></div>
+                </td>  
+                <td>
+                  <div class="color" id="blue" onclick="set_blue()"></div>
+                </td>  
+                <td>
+                  <div class="color" id="puple" onclick="set_puple()"></div>
+                </td>  
+              </tr>
+              <tr>
+                <td>
+                  <div class="color" id="white" onclick="set_white()"></div>
+                </td>
+                <td>
+                  <div class="color" id="lightgray" onclick="set_lightgray()"></div>
+                </td>
+                <td>
+                  <div class="color" id="ocher" onclick="set_ocher()"></div>
+                </td>
+                <td>
+                  <div class="color" id="pink" onclick="set_pink()"></div>
+                </td>
+                <td>
+                  <div class="color" id="gold" onclick="set_gold()"></div>
+                </td>    
+                <td>
+                  <div class="color" id="lightgreen" onclick="set_lightgreen()"></div>
+                </td>  
+                <td>
+                  <div class="color" id="lightskyblue" onclick="set_lightskyblue()"></div>
+                </td>  
+                <td>
+                  <div class="color" id="lightblue" onclick="set_lightblue()"></div>
+                </td> 
+                <td>
+                  <div class="color" id="lightpuple" onclick="set_lightpuple()"></div>
+                </td>  
+              </tr>
+              <tr>
+                <td>
+                  <div class="size" id="size5" onclick="set_size5()"></div>
+                </td>
+                <td>
+                  <div class="size" id="size9" onclick="set_size9()"></div>
+                </td>
+                <td>
+                  <div class="size" id="size13" onclick="set_size13()"></div>
+                </td>
+                <td>
+                  <div class="size" id="size17" onclick="set_size17()"></div>
+                </td>  
+                <td>
+                  <div class="size" id="size21" onclick="set_size21()"></div>
+                </td>  
+                <td>
+                  <div class="size" id="size25" onclick="set_size25()"></div>
+                </td>  
+                <td>
+                  <div class="size" id="size29" onclick="set_size29()"></div>
+                </td>  
+                <td>
+                  <img src="./eraser.jpg" width="29" class="size" onclick="eraser()">
+                </td> 
+                <td>
+                  <img src="./clear.jpg" width="29" class="size" onclick="delete_canvas()">
+                </td>            
+              </tr>
+            </table>
+
+            <table class="moji">
+              <tr>
+                <td>
+                  <input type="text" size="30" name="field1" placeholder="ひらがなで入力"  required="required" >
+                </td>
+                <td>
+                  <input type="submit" id="send" value="→" onclick="on_submit()">
+                  <div id="overlay" class="overlay" >
+                    <div class="eshiritori_result">
+                      <div id="off" onclick="off()">×</div>
+                      <div id="result"></div>
+                      <script src="./result.js"></script>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <table  class="moji">
+              <tr>
+                <td>
+                  <button onclick="on()">絵しりとりを終わる</button>
+                </td>
+              </tr>
+            </table>
+              
+            
+          </div>
+          
+          
+          
+        </form>
+      
+
+    </div>
+
+      
+
+    <div class="right">
+      <section>
+      <div class="shiritori" id="auto_scroll">  
+        <output></output>
+      </section>
+      
+        <script src="./shiritori.js"></script>
+      </div>
+    </div>
+
+
+    
+  </div>
+
+
+  
+  
+ </body>
+</html>
