@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+  <meta charset="UTF-8" />
+  <title>絵しりとり</title>
+  <link rel="stylesheet" href="./style.css" type="text/css" />
+  <script src="./script.js"></script>
+ </head>
+
+ <body>
+  <header>絵しりとり</header>
+  <canvas id="myCanvas" width="600" height="300">  </canvas>
+  <form>
+　<input type="button" value="画像に変換" onclick="chgImg()">
+　
+
+<div><img id="newImg"></div>
+
+
+  <section>
+    <h2>送信</h2>
+    
+      <input type="text" size="20" name="message">
+      <input type="button" value="送信" onclick="on_submit">
+      <br>
+      <input type="file" name="file">
+    </form>
+  </section>
+  <section>
+    <h2>受信</h2>
+    <output></output>
+  </section>
+  <script src="./shiritori.js"></script>
+ </body>
+</html>
